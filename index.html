@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ===== CSS VARIABLES ===== */
         :root {
             --bg-primary: #0a0a0f;
             --bg-secondary: #12121a;
@@ -38,7 +37,6 @@
             --max-width: 1100px;
         }
 
-        /* ===== RESET & BASE ===== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html {
@@ -56,819 +54,368 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection {
-            background: var(--accent);
-            color: #fff;
-        }
-
+        ::selection { background: var(--accent); color: #fff; }
         a { color: var(--accent); text-decoration: none; transition: var(--transition); }
         a:hover { color: #7ab0ff; }
 
-        /* ===== NAVIGATION ===== */
+        /* NAV */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             padding: 0 2rem;
             background: rgba(10, 10, 15, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             transition: var(--transition);
         }
-
-        .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.95);
-            box-shadow: var(--shadow-sm);
-        }
+        .navbar.scrolled { background: rgba(10, 10, 15, 0.95); box-shadow: var(--shadow-sm); }
 
         .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 64px;
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; height: 64px;
         }
-
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
+        .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text-primary); letter-spacing: -0.02em; }
         .nav-logo span { color: var(--accent); }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.25rem 0;
+            color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 0.02em; text-transform: uppercase; position: relative; padding: 0.25rem 0;
         }
-
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gradient);
-            border-radius: 1px;
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 0; height: 2px; background: var(--accent-gradient); border-radius: 1px; transition: width 0.3s ease;
         }
-
         .nav-links a:hover { color: var(--text-primary); }
         .nav-links a:hover::after { width: 100%; }
 
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.4rem;
-            cursor: pointer;
+        .lang-toggle {
+            display: flex; align-items: center; gap: 0;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+            margin-left: 0.5rem;
         }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 6rem 2rem 4rem;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-        }
-
-        .hero-bg canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        .hero-gradient {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 50% 45%, rgba(79, 140, 255, 0.08), transparent),
-                radial-gradient(ellipse 40% 30% at 70% 60%, rgba(124, 92, 252, 0.05), transparent);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 750px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: var(--accent-glow);
-            border: 1px solid rgba(79, 140, 255, 0.2);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
+        .lang-btn {
+            padding: 0.3rem 0.65rem; font-size: 0.75rem; font-weight: 600;
+            background: none; border: none; color: var(--text-muted);
+            cursor: pointer; font-family: inherit; transition: var(--transition);
             letter-spacing: 0.03em;
         }
+        .lang-btn.active { background: var(--accent); color: #fff; }
+        .lang-btn:hover:not(.active) { color: var(--text-primary); }
 
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite;
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-toggle {
+            display: none; background: none; border: none;
+            color: var(--text-primary); font-size: 1.4rem; cursor: pointer;
         }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; padding: 6rem 2rem 4rem; overflow: hidden;
         }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.2rem;
-        }
-
-        .hero h1 .gradient-text {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.75rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(79, 140, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(79, 140, 255, 0.4);
-            color: #fff;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-            color: var(--text-primary);
-        }
-
-        .hero-scroll {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .hero-scroll i {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(8px); }
-        }
-
-        /* ===== SECTIONS ===== */
-        section { padding: 5rem 2rem; }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-
-        /* ===== ABOUT ===== */
-        #about { background: var(--bg-secondary); }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 1.2rem;
-            font-size: 1rem;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ===== EXPERIENCE ===== */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), transparent);
-            border-radius: 1px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-            padding-left: 1.5rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2rem;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            background: var(--bg-primary);
-            border: 2px solid var(--accent);
-            border-radius: 50%;
+        .hero-bg { position: absolute; inset: 0; z-index: 0; }
+        .hero-bg canvas { width: 100%; height: 100%; }
+        .hero-gradient {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(79,140,255,0.08), transparent),
+                        radial-gradient(ellipse 40% 30% at 70% 60%, rgba(124,92,252,0.05), transparent);
             z-index: 1;
         }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 750px; }
 
-        .timeline-item:hover::before {
-            background: var(--accent);
-            box-shadow: 0 0 12px var(--accent);
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.4rem 1rem; background: var(--accent-glow);
+            border: 1px solid rgba(79,140,255,0.2); border-radius: 50px;
+            font-size: 0.8rem; font-weight: 500; color: var(--accent);
+            margin-bottom: 1.5rem; letter-spacing: 0.03em;
         }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+        .hero-badge .dot {
+            width: 6px; height: 6px; background: #4ade80; border-radius: 50%;
+            animation: pulse-dot 2s infinite;
         }
+        @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-        .timeline-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-primary);
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+            line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.2rem;
         }
-
-        .timeline-company {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 500;
+        .hero h1 .gradient-text {
+            background: var(--accent-gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
         }
-
-        .timeline-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+        .hero-subtitle {
+            font-size: 1.15rem; color: var(--text-secondary); font-weight: 400;
+            line-height: 1.7; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;
         }
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-        .timeline-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 0.75rem;
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.75rem; border-radius: 10px; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); border: none; font-family: inherit;
         }
+        .btn-primary {
+            background: var(--accent-gradient); color: #fff;
+            box-shadow: 0 4px 20px rgba(79,140,255,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,140,255,0.4); color: #fff; }
+        .btn-outline { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--accent); background: var(--accent-glow); color: var(--text-primary); }
 
+        .hero-scroll {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            z-index: 2; animation: float 3s ease-in-out infinite;
+        }
+        .hero-scroll i { color: var(--text-muted); font-size: 1.2rem; }
+        @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+        /* SECTIONS */
+        section { padding: 5rem 2rem; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-label {
+            display: inline-block; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.75rem;
+        }
+        .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+        .container { max-width: var(--max-width); margin: 0 auto; }
+
+        /* ABOUT */
+        #about { background: var(--bg-secondary); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about-text p { color: var(--text-secondary); margin-bottom: 1.2rem; font-size: 1rem; }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 1.5rem; text-align: center; transition: var(--transition);
+        }
+        .stat-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .stat-number {
+            font-size: 2rem; font-weight: 800;
+            background: var(--accent-gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* TIMELINE */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), transparent); border-radius: 1px;
+        }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -2rem; top: 0.5rem;
+            width: 12px; height: 12px; background: var(--bg-primary);
+            border: 2px solid var(--accent); border-radius: 50%; z-index: 1;
+        }
+        .timeline-item:hover::before { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+        .timeline-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .timeline-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+        .timeline-company { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+        .timeline-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+        .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
         .tag {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            background: var(--accent-glow);
-            border: 1px solid rgba(79, 140, 255, 0.15);
-            border-radius: 6px;
-            font-size: 0.72rem;
-            color: var(--accent);
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
+            display: inline-block; padding: 0.2rem 0.6rem;
+            background: var(--accent-glow); border: 1px solid rgba(79,140,255,0.15);
+            border-radius: 6px; font-size: 0.72rem; color: var(--accent);
+            font-weight: 500; font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ===== PROJECTS ===== */
+        /* PROJECTS */
         #projects { background: var(--bg-secondary); }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 2rem; transition: var(--transition); position: relative; overflow: hidden;
         }
-
         .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--accent-gradient); opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .project-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            background: var(--bg-card-hover);
-        }
-
+        .project-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-lg); background: var(--bg-card-hover); }
         .project-card:hover::before { opacity: 1; }
-
         .project-icon {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-glow);
-            border: 1px solid rgba(79, 140, 255, 0.15);
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
-            font-size: 1.2rem;
-            color: var(--accent);
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+            background: var(--accent-glow); border: 1px solid rgba(79,140,255,0.15);
+            border-radius: 12px; margin-bottom: 1.2rem; font-size: 1.2rem; color: var(--accent);
         }
+        .project-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.3; }
+        .project-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.65; margin-bottom: 1rem; }
 
-        .project-card h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-            line-height: 1.3;
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            line-height: 1.65;
-            margin-bottom: 1rem;
-        }
-
-        /* ===== SKILLS ===== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
+        /* SKILLS */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
         .skill-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.75rem;
-            transition: var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 1.75rem; transition: var(--transition);
         }
-
-        .skill-category:hover {
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-md);
-        }
-
-        .skill-category-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
+        .skill-category:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
+        .skill-category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
         .skill-category-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-glow);
-            border-radius: 8px;
-            color: var(--accent);
-            font-size: 0.9rem;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            background: var(--accent-glow); border-radius: 8px; color: var(--accent); font-size: 0.9rem;
         }
-
-        .skill-category h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
+        .skill-category h3 { font-size: 0.95rem; font-weight: 600; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .skill-tag {
-            padding: 0.35rem 0.75rem;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: var(--transition);
+            padding: 0.35rem 0.75rem; background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem;
+            color: var(--text-secondary); font-weight: 500; transition: var(--transition);
         }
+        .skill-tag:hover { background: var(--accent-glow); border-color: rgba(79,140,255,0.25); color: var(--accent); }
 
-        .skill-tag:hover {
-            background: var(--accent-glow);
-            border-color: rgba(79, 140, 255, 0.25);
-            color: var(--accent);
-        }
-
-        /* ===== EDUCATION ===== */
+        /* EDUCATION */
         #education { background: var(--bg-secondary); }
-
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
+        .education-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
         .edu-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 2rem; transition: var(--transition);
         }
-
-        .edu-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
+        .edu-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-md); }
         .edu-icon {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent-glow);
-            border: 1px solid rgba(79, 140, 255, 0.15);
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
-            font-size: 1.2rem;
-            color: var(--accent);
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+            background: var(--accent-glow); border: 1px solid rgba(79,140,255,0.15);
+            border-radius: 12px; margin-bottom: 1.2rem; font-size: 1.2rem; color: var(--accent);
         }
+        .edu-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .edu-card .institution { color: var(--accent); font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; }
+        .edu-card .edu-desc { color: var(--text-secondary); font-size: 0.88rem; }
 
-        .edu-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-
-        .edu-card .institution {
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-
-        .edu-card .edu-desc {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-        }
-
-        /* ===== CONTACT ===== */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-content p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
+        /* CONTACT */
+        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
+        .contact-content p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.85rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.85rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--text-primary); font-size: 0.9rem;
+            font-weight: 500; transition: var(--transition);
         }
-
-        .contact-link:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-            transform: translateY(-2px);
-            color: var(--text-primary);
-        }
-
+        .contact-link:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); color: var(--text-primary); }
         .contact-link i { color: var(--accent); }
 
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
+        /* FOOTER */
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
 
-        /* ===== ANIMATIONS ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+        /* ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== MOBILE MENU ===== */
+        /* MOBILE MENU */
         .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 64px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 15, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
+            display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+            background: rgba(10,10,15,0.98); backdrop-filter: blur(20px); z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
         }
-
         .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: var(--text-primary); font-size: 1.3rem; font-weight: 600; }
 
-        .mobile-menu a {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .nav-toggle { display: block; }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid,
-            .skills-grid,
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .projects-grid, .skills-grid, .education-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.2rem; }
             .hero-subtitle { font-size: 1rem; }
-
             section { padding: 3.5rem 1.25rem; }
-
-            .timeline-header {
-                flex-direction: column;
-                gap: 0.2rem;
-            }
+            .timeline-header { flex-direction: column; gap: 0.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
             <a href="#" class="nav-logo">JH<span>.</span></a>
             <ul class="nav-links">
-                <li><a href="#about">Sobre Mí</a></li>
-                <li><a href="#experience">Experiencia</a></li>
-                <li><a href="#projects">Proyectos</a></li>
-                <li><a href="#skills">Habilidades</a></li>
-                <li><a href="#education">Educación</a></li>
-                <li><a href="#contact">Contacto</a></li>
+                <li><a href="#about" data-i18n="nav_about">About</a></li>
+                <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+                <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+                <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+                <li><a href="#education" data-i18n="nav_education">Education</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
             </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+                    <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#about" onclick="closeMobile()">Sobre Mí</a>
-        <a href="#experience" onclick="closeMobile()">Experiencia</a>
-        <a href="#projects" onclick="closeMobile()">Proyectos</a>
-        <a href="#skills" onclick="closeMobile()">Habilidades</a>
-        <a href="#education" onclick="closeMobile()">Educación</a>
-        <a href="#contact" onclick="closeMobile()">Contacto</a>
+        <a href="#about" onclick="closeMobile()" data-i18n="nav_about">About</a>
+        <a href="#experience" onclick="closeMobile()" data-i18n="nav_experience">Experience</a>
+        <a href="#projects" onclick="closeMobile()" data-i18n="nav_projects">Projects</a>
+        <a href="#skills" onclick="closeMobile()" data-i18n="nav_skills">Skills</a>
+        <a href="#education" onclick="closeMobile()" data-i18n="nav_education">Education</a>
+        <a href="#contact" onclick="closeMobile()" data-i18n="nav_contact">Contact</a>
     </div>
 
     <!-- HERO -->
     <section class="hero" id="hero">
-        <div class="hero-bg">
-            <canvas id="particleCanvas"></canvas>
-        </div>
+        <div class="hero-bg"><canvas id="particleCanvas"></canvas></div>
         <div class="hero-gradient"></div>
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
-                Disponible para oportunidades
+                <span data-i18n="hero_badge">Open to opportunities</span>
             </div>
             <h1>Jesús F. Hernández<br><span class="gradient-text">Conde</span></h1>
-            <p class="hero-subtitle">
-                Físico e Ingeniero en IA con especialidad en evaluación de modelos de machine learning, visión computacional, robótica y computación científica.
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                Physicist & AI Engineer specializing in machine learning model evaluation, computer vision, robotics, and scientific computing.
             </p>
             <div class="hero-actions">
                 <a href="#projects" class="btn btn-primary">
-                    <i class="fa-solid fa-rocket"></i> Ver Proyectos
+                    <i class="fa-solid fa-rocket"></i> <span data-i18n="hero_btn_projects">View Projects</span>
                 </a>
                 <a href="#contact" class="btn btn-outline">
-                    <i class="fa-solid fa-envelope"></i> Contacto
+                    <i class="fa-solid fa-envelope"></i> <span data-i18n="hero_btn_contact">Contact</span>
                 </a>
             </div>
         </div>
-        <div class="hero-scroll">
-            <i class="fa-solid fa-chevron-down"></i>
-        </div>
+        <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i></div>
     </section>
 
     <!-- ABOUT -->
     <section id="about">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Sobre Mí</span>
-                <h2 class="section-title">Física, Código y Datos</h2>
+                <span class="section-label" data-i18n="nav_about">About</span>
+                <h2 class="section-title" data-i18n="about_title">Physics, Code & Data</h2>
             </div>
             <div class="about-grid">
                 <div class="about-text reveal">
-                    <p>
-                        Soy un <strong>Físico</strong> egresado de la Facultad de Ciencias Físico Matemáticas de la UANL, con doble titulación técnica en <strong>Informática</strong> y <strong>Ciencias de la Computación</strong>. Radicado en Nuevo León, México, con capacidad bilingüe en inglés y español.
+                    <p data-i18n="about_p1">
+                        I am a <strong>Physicist</strong> graduated from the Faculty of Physical and Mathematical Sciences (FCFM) at UANL, with a dual technical degree in <strong>Computer Science</strong> and <strong>Information Technology</strong>. Based in Nuevo León, México, fully bilingual in English and Spanish.
                     </p>
-                    <p>
-                        Mi formación me permite combinar una base rigurosa en <strong>física teórica y matemática</strong> con habilidades avanzadas en desarrollo de software, análisis de datos, infraestructura en la nube y visión computacional.
+                    <p data-i18n="about_p2">
+                        My background allows me to combine a rigorous foundation in <strong>theoretical physics and mathematics</strong> with advanced skills in software development, data analysis, cloud infrastructure, and computer vision.
                     </p>
-                    <p>
-                        Cuento con experiencia comprobable en la <strong>evaluación de modelos de inteligencia artificial</strong>, control de calidad de procesos automatizados, desarrollo de robótica interactiva y análisis de bio-imágenes con redes neuronales.
+                    <p data-i18n="about_p3">
+                        I have proven experience in <strong>AI model evaluation</strong>, quality assurance of automated processes, interactive robotics development, and bio-image analysis using neural networks.
                     </p>
                 </div>
                 <div class="about-stats reveal">
                     <div class="stat-card">
                         <div class="stat-number">5+</div>
-                        <div class="stat-label">Proyectos Técnicos</div>
+                        <div class="stat-label" data-i18n="stat_projects">Technical Projects</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">6+</div>
-                        <div class="stat-label">Lenguajes</div>
+                        <div class="stat-label" data-i18n="stat_langs">Languages</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">EN/ES</div>
-                        <div class="stat-label">Bilingüe</div>
+                        <div class="stat-label" data-i18n="stat_bilingual">Bilingual</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">3</div>
-                        <div class="stat-label">Titulaciones</div>
+                        <div class="stat-label" data-i18n="stat_degrees">Degrees</div>
                     </div>
                 </div>
             </div>
@@ -879,83 +426,72 @@
     <section id="experience">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Experiencia</span>
-                <h2 class="section-title">Trayectoria Profesional</h2>
+                <span class="section-label" data-i18n="nav_experience">Experience</span>
+                <h2 class="section-title" data-i18n="exp_title">Professional Background</h2>
             </div>
             <div class="timeline">
-                <!-- AI QA -->
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <h3 class="timeline-title">Evaluación de IA y Aseguramiento de Calidad</h3>
+                        <h3 class="timeline-title" data-i18n="exp1_title">AI Evaluation & Quality Assurance</h3>
                     </div>
                     <span class="timeline-company">Google / Truelancer</span>
-                    <p class="timeline-desc">
-                        Análisis y evaluación de modelos de inteligencia artificial orientados a la gestión y procesamiento de correos electrónicos. Evaluación del rendimiento, precisión y fiabilidad de respuestas generadas por IA.
+                    <p class="timeline-desc" data-i18n="exp1_desc">
+                        Analysis and evaluation of AI models focused on email management and processing. Assessment of performance, accuracy, and reliability of AI-generated responses.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">AI Evaluation</span>
-                        <span class="tag">NLP</span>
-                        <span class="tag">Email Processing</span>
+                        <span class="tag">AI Evaluation</span><span class="tag">NLP</span><span class="tag">Email Processing</span>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <h3 class="timeline-title">Control de Calidad — Automatización Económica</h3>
+                        <h3 class="timeline-title" data-i18n="exp2_title">Quality Assurance — Economic Automation</h3>
                     </div>
                     <span class="timeline-company">ByteDance</span>
-                    <p class="timeline-desc">
-                        QA para la automatización de procesos económicos, asegurando la integridad y eficiencia de los flujos de trabajo automatizados en producción.
+                    <p class="timeline-desc" data-i18n="exp2_desc">
+                        QA for economic process automation, ensuring the integrity and efficiency of automated production workflows.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">QA</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Process Integrity</span>
+                        <span class="tag">QA</span><span class="tag">Automation</span><span class="tag">Process Integrity</span>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <h3 class="timeline-title">Evaluación Técnica y Anotación de IA</h3>
+                        <h3 class="timeline-title" data-i18n="exp3_title">Technical AI Evaluation & Data Annotation</h3>
                     </div>
                     <span class="timeline-company">Data Annotation · Outlier · TRS Multilingual · Alignerr</span>
-                    <p class="timeline-desc">
-                        Evaluación técnica de respuestas generadas por IA, anotación de conjuntos de datos y desarrollo de código para mejorar el rendimiento de modelos de machine learning.
+                    <p class="timeline-desc" data-i18n="exp3_desc">
+                        Technical evaluation of AI-generated responses, dataset annotation, and code development to improve machine learning model performance.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">Data Annotation</span>
-                        <span class="tag">ML Training</span>
-                        <span class="tag">RLHF</span>
-                        <span class="tag">Code Generation</span>
+                        <span class="tag">Data Annotation</span><span class="tag">ML Training</span><span class="tag">RLHF</span><span class="tag">Code Generation</span>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <h3 class="timeline-title">Mantenimiento de Hardware de Laboratorio</h3>
+                        <h3 class="timeline-title" data-i18n="exp4_title">Laboratory Hardware Maintenance</h3>
                     </div>
                     <span class="timeline-company">FCFM UANL</span>
-                    <p class="timeline-desc">
-                        Diagnóstico de fallos, prueba y reparación a nivel de componentes de equipos de precisión: osciloscopios analógicos GW Instek GOS-653G, multímetros Steren, fuentes de poder y generadores de señales.
+                    <p class="timeline-desc" data-i18n="exp4_desc">
+                        Fault diagnosis, component-level testing and repair of precision equipment: GW Instek GOS-653G analog oscilloscopes, Steren multimeters, power supplies, and signal generators.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">Hardware</span>
-                        <span class="tag">Oscilloscopes</span>
-                        <span class="tag">Diagnostics</span>
+                        <span class="tag">Hardware</span><span class="tag">Oscilloscopes</span><span class="tag">Diagnostics</span>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <h3 class="timeline-title">Administración y Soporte Académico</h3>
+                        <h3 class="timeline-title" data-i18n="exp5_title">Academic Administration & Support</h3>
                     </div>
                     <span class="timeline-company">FCFM UANL</span>
-                    <p class="timeline-desc">
-                        Gestión de inventarios y préstamos de equipo, y apoyo técnico para la Olimpiada de Física.
+                    <p class="timeline-desc" data-i18n="exp5_desc">
+                        Equipment inventory and loan management, and technical support for the Physics Olympiad.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">Inventory Management</span>
-                        <span class="tag">Physics Olympiad</span>
+                        <span class="tag">Inventory Management</span><span class="tag">Physics Olympiad</span>
                     </div>
                 </div>
             </div>
@@ -966,77 +502,62 @@
     <section id="projects">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Proyectos</span>
-                <h2 class="section-title">Trabajo Destacado</h2>
+                <span class="section-label" data-i18n="nav_projects">Projects</span>
+                <h2 class="section-title" data-i18n="proj_title">Featured Work</h2>
             </div>
             <div class="projects-grid">
                 <div class="project-card reveal">
                     <div class="project-icon"><i class="fa-solid fa-robot"></i></div>
-                    <h3>Robótica Inalámbrica y Reconocimiento de Lenguaje de Señas</h3>
-                    <p>
-                        Sistema de automatización robótica con ESP32, transmisión de video inalámbrica y modelo de ML entrenado desde cero para detectar lenguaje de señas y reconocimiento facial. El robot responde a comandos gestuales de usuarios autorizados.
+                    <h3 data-i18n="proj1_title">Wireless Robotics & Sign Language Recognition</h3>
+                    <p data-i18n="proj1_desc">
+                        Robotic automation system powered by ESP32 with wireless video streaming and a custom-trained ML model for sign language detection and facial recognition. The robot responds to gestural commands from authorized users.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">ESP32</span>
-                        <span class="tag">OpenCV</span>
-                        <span class="tag">ML</span>
-                        <span class="tag">Computer Vision</span>
+                        <span class="tag">ESP32</span><span class="tag">OpenCV</span><span class="tag">ML</span><span class="tag">Computer Vision</span>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
                     <div class="project-icon"><i class="fa-solid fa-microscope"></i></div>
-                    <h3>Segmentación de Bio-imágenes con CNNs</h3>
-                    <p>
-                        Scripts en Python con Cellpose, OpenCV y LOCO-EFA para extracción de máscaras celulares y reconstrucción de contornos. Análisis de Fourier de morfología en cultivos celulares usando Redes Neuronales Convolucionales.
+                    <h3 data-i18n="proj2_title">Bio-Image Segmentation with CNNs</h3>
+                    <p data-i18n="proj2_desc">
+                        Python scripts using Cellpose, OpenCV, and LOCO-EFA for cell mask extraction and contour reconstruction. Fourier morphology analysis on cell cultures using Convolutional Neural Networks.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Cellpose</span>
-                        <span class="tag">CNN</span>
-                        <span class="tag">Fourier Analysis</span>
+                        <span class="tag">Python</span><span class="tag">Cellpose</span><span class="tag">CNN</span><span class="tag">Fourier Analysis</span>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
                     <div class="project-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                    <h3>Sistema Automatizado de Inventario</h3>
-                    <p>
-                        Aplicación móvil para gestión de equipos universitarios con React Native y Expo, base de datos relacional en AWS RDS y seguimiento mediante códigos de barras.
+                    <h3 data-i18n="proj3_title">Automated Inventory System</h3>
+                    <p data-i18n="proj3_desc">
+                        Mobile application for university equipment management built with React Native and Expo, featuring an AWS RDS relational database and barcode tracking.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">React Native</span>
-                        <span class="tag">Expo</span>
-                        <span class="tag">AWS RDS</span>
-                        <span class="tag">Barcode</span>
+                        <span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">AWS RDS</span><span class="tag">Barcode</span>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
                     <div class="project-icon"><i class="fa-solid fa-chess"></i></div>
-                    <h3>Motor de Balanceo de Juegos</h3>
-                    <p>
-                        Herramienta de simulación en Python para auditar métricas estratégicas en Clash Royale, con control de versiones en Git y código publicado en GitHub.
+                    <h3 data-i18n="proj4_title">Game Balancing Engine & Tactical Audit</h3>
+                    <p data-i18n="proj4_desc">
+                        Python simulation tool for auditing strategic metrics in Clash Royale, with Git version control and code published on GitHub.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Simulation</span>
-                        <span class="tag">Git</span>
-                        <span class="tag">Analytics</span>
+                        <span class="tag">Python</span><span class="tag">Simulation</span><span class="tag">Git</span><span class="tag">Analytics</span>
                     </div>
                 </div>
 
                 <div class="project-card reveal">
                     <div class="project-icon"><i class="fa-solid fa-atom"></i></div>
-                    <h3>Investigación en Teoría Cuántica de Campos</h3>
-                    <p>
-                        Tesis sobre la renormalización de la divergencia ultravioleta a 1-loop utilizando FeynCalc, con repositorios en GitHub y documentación en LaTeX.
+                    <h3 data-i18n="proj5_title">Quantum Field Theory Research</h3>
+                    <p data-i18n="proj5_desc">
+                        Thesis on the renormalization of the ultraviolet divergence at 1-loop using FeynCalc, with GitHub repositories and LaTeX documentation.
                     </p>
                     <div class="timeline-tags">
-                        <span class="tag">FeynCalc</span>
-                        <span class="tag">QFT</span>
-                        <span class="tag">LaTeX</span>
-                        <span class="tag">Mathematica</span>
+                        <span class="tag">FeynCalc</span><span class="tag">QFT</span><span class="tag">LaTeX</span><span class="tag">Mathematica</span>
                     </div>
                 </div>
             </div>
@@ -1047,92 +568,68 @@
     <section id="skills">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Habilidades</span>
-                <h2 class="section-title">Stack Técnico</h2>
+                <span class="section-label" data-i18n="nav_skills">Skills</span>
+                <h2 class="section-title" data-i18n="skills_title">Tech Stack</h2>
             </div>
             <div class="skills-grid">
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-code"></i></div>
-                        <h3>Lenguajes de Programación</h3>
+                        <h3 data-i18n="sk1_title">Programming Languages</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">C</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">R</span>
-                        <span class="skill-tag">Fortran</span>
-                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">C</span><span class="skill-tag">C++</span><span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span><span class="skill-tag">Fortran</span><span class="skill-tag">JavaScript</span>
                     </div>
                 </div>
-
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-brain"></i></div>
-                        <h3>Inteligencia Artificial y ML</h3>
+                        <h3 data-i18n="sk2_title">Artificial Intelligence & ML</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">CNNs</span>
-                        <span class="skill-tag">Computer Vision</span>
-                        <span class="skill-tag">AI Evaluation</span>
-                        <span class="skill-tag">Data Annotation</span>
-                        <span class="skill-tag">RLHF</span>
+                        <span class="skill-tag">CNNs</span><span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag">AI Evaluation</span><span class="skill-tag">Data Annotation</span><span class="skill-tag">RLHF</span>
                     </div>
                 </div>
-
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <h3>Ciencia de Datos y Matemáticas</h3>
+                        <h3 data-i18n="sk3_title">Data Science & Mathematics</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">SciPy</span>
-                        <span class="skill-tag">Matplotlib</span>
-                        <span class="skill-tag">SymPy</span>
-                        <span class="skill-tag">FeynCalc</span>
+                        <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">SciPy</span>
+                        <span class="skill-tag">Matplotlib</span><span class="skill-tag">SymPy</span><span class="skill-tag">FeynCalc</span>
                     </div>
                 </div>
-
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-microchip"></i></div>
-                        <h3>Hardware y Visión Computacional</h3>
+                        <h3 data-i18n="sk4_title">Hardware & Computer Vision</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">ESP32</span>
-                        <span class="skill-tag">Cellpose</span>
-                        <span class="skill-tag">LOCO-EFA</span>
-                        <span class="skill-tag">Robótica</span>
+                        <span class="skill-tag">OpenCV</span><span class="skill-tag">ESP32</span><span class="skill-tag">Cellpose</span>
+                        <span class="skill-tag">LOCO-EFA</span><span class="skill-tag">Robotics</span>
                     </div>
                 </div>
-
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-cloud"></i></div>
-                        <h3>Infraestructura Cloud</h3>
+                        <h3 data-i18n="sk5_title">Cloud Infrastructure</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">Oracle Cloud (OCI)</span>
-                        <span class="skill-tag">AWS RDS</span>
-                        <span class="skill-tag">Google Colab</span>
-                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Oracle Cloud (OCI)</span><span class="skill-tag">AWS RDS</span>
+                        <span class="skill-tag">Google Colab</span><span class="skill-tag">Linux</span>
                     </div>
                 </div>
-
                 <div class="skill-category reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon"><i class="fa-solid fa-wrench"></i></div>
-                        <h3>Herramientas de Desarrollo</h3>
+                        <h3 data-i18n="sk6_title">Development Tools</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">LaTeX</span>
-                        <span class="skill-tag">React Native</span>
-                        <span class="skill-tag">Expo</span>
+                        <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">LaTeX</span>
+                        <span class="skill-tag">React Native</span><span class="skill-tag">Expo</span>
                     </div>
                 </div>
             </div>
@@ -1143,27 +640,27 @@
     <section id="education">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Educación</span>
-                <h2 class="section-title">Formación Académica</h2>
+                <span class="section-label" data-i18n="nav_education">Education</span>
+                <h2 class="section-title" data-i18n="edu_title">Academic Background</h2>
             </div>
             <div class="education-grid">
                 <div class="edu-card reveal">
                     <div class="edu-icon"><i class="fa-solid fa-atom"></i></div>
-                    <h3>Licenciatura en Física</h3>
-                    <p class="institution">Facultad de Ciencias Físico Matemáticas — UANL</p>
-                    <p class="edu-desc">Formación rigurosa en física teórica, mecánica cuántica, electrodinámica y métodos matemáticos avanzados. Tesis en Teoría Cuántica de Campos.</p>
+                    <h3 data-i18n="edu1_title">B.Sc. in Physics</h3>
+                    <p class="institution" data-i18n="edu1_inst">Faculty of Physical & Mathematical Sciences — UANL</p>
+                    <p class="edu-desc" data-i18n="edu1_desc">Rigorous training in theoretical physics, quantum mechanics, electrodynamics, and advanced mathematical methods. Thesis in Quantum Field Theory.</p>
                 </div>
                 <div class="edu-card reveal">
                     <div class="edu-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3>Doble Titulación Técnica</h3>
-                    <p class="institution">Informática y Ciencias de la Computación</p>
-                    <p class="edu-desc">Fundamentos de arquitectura de computadoras, estructuras de datos, programación, redes y sistemas operativos.</p>
+                    <h3 data-i18n="edu2_title">Dual Technical Degree</h3>
+                    <p class="institution" data-i18n="edu2_inst">Information Technology & Computer Science</p>
+                    <p class="edu-desc" data-i18n="edu2_desc">Fundamentals in computer architecture, data structures, programming, networking, and operating systems.</p>
                 </div>
                 <div class="edu-card reveal">
                     <div class="edu-icon"><i class="fa-solid fa-certificate"></i></div>
-                    <h3>Certificación CONACe — 2023</h3>
-                    <p class="institution">Consejo Nacional de Acreditación</p>
-                    <p class="edu-desc">Redes Neuronales y Análisis de Datos en R. Certificación profesional en metodologías de machine learning y análisis estadístico.</p>
+                    <h3 data-i18n="edu3_title">CONACe Certification — 2023</h3>
+                    <p class="institution" data-i18n="edu3_inst">National Accreditation Council</p>
+                    <p class="edu-desc" data-i18n="edu3_desc">Neural Networks and Data Analysis in R. Professional certification in machine learning methodologies and statistical analysis.</p>
                 </div>
             </div>
         </div>
@@ -1173,12 +670,12 @@
     <section id="contact">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-label">Contacto</span>
-                <h2 class="section-title">Trabajemos Juntos</h2>
+                <span class="section-label" data-i18n="nav_contact">Contact</span>
+                <h2 class="section-title" data-i18n="contact_title">Let's Work Together</h2>
             </div>
             <div class="contact-content reveal">
-                <p>
-                    Estoy abierto a oportunidades en ciencia de datos, evaluación de IA, desarrollo de software e investigación. Si mi perfil encaja con lo que buscas, no dudes en contactarme.
+                <p data-i18n="contact_desc">
+                    I'm open to opportunities in data science, AI evaluation, software development, and research. If my profile matches what you're looking for, feel free to reach out.
                 </p>
                 <div class="contact-links">
                     <a href="mailto:jesusf.hdzcnd@gmail.com" class="contact-link">
@@ -1187,7 +684,7 @@
                     <a href="https://github.com/jesusfhdzcnd-ML" target="_blank" rel="noopener" class="contact-link">
                         <i class="fa-brands fa-github"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/jesús-faustino-hernandez-conde-46aa81288" target="_blank" rel="noopener" class="contact-link">
+                    <a href="https://www.linkedin.com/in/jes%C3%BAs-faustino-hernandez-conde-46aa81288" target="_blank" rel="noopener" class="contact-link">
                         <i class="fa-brands fa-linkedin"></i> LinkedIn
                     </a>
                 </div>
@@ -1195,67 +692,168 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-        <p>© 2026 Jesús F. Hernández Conde. Nuevo León, México.</p>
+        <p>© 2026 Jesús F. Hernández Conde · Nuevo León, México</p>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
-        // === Particle Canvas (geometric physics-themed background) ===
+        /* ===== i18n ===== */
+        const translations = {
+            en: {
+                nav_about: "About", nav_experience: "Experience", nav_projects: "Projects",
+                nav_skills: "Skills", nav_education: "Education", nav_contact: "Contact",
+                hero_badge: "Open to opportunities",
+                hero_subtitle: "Physicist & AI Engineer specializing in machine learning model evaluation, computer vision, robotics, and scientific computing.",
+                hero_btn_projects: "View Projects", hero_btn_contact: "Contact",
+                about_title: "Physics, Code & Data",
+                about_p1: 'I am a <strong>Physicist</strong> graduated from the Faculty of Physical and Mathematical Sciences (FCFM) at UANL, with a dual technical degree in <strong>Computer Science</strong> and <strong>Information Technology</strong>. Based in Nuevo León, México, fully bilingual in English and Spanish.',
+                about_p2: 'My background allows me to combine a rigorous foundation in <strong>theoretical physics and mathematics</strong> with advanced skills in software development, data analysis, cloud infrastructure, and computer vision.',
+                about_p3: 'I have proven experience in <strong>AI model evaluation</strong>, quality assurance of automated processes, interactive robotics development, and bio-image analysis using neural networks.',
+                stat_projects: "Technical Projects", stat_langs: "Languages", stat_bilingual: "Bilingual", stat_degrees: "Degrees",
+                exp_title: "Professional Background",
+                exp1_title: "AI Evaluation & Quality Assurance",
+                exp1_desc: "Analysis and evaluation of AI models focused on email management and processing. Assessment of performance, accuracy, and reliability of AI-generated responses.",
+                exp2_title: "Quality Assurance — Economic Automation",
+                exp2_desc: "QA for economic process automation, ensuring the integrity and efficiency of automated production workflows.",
+                exp3_title: "Technical AI Evaluation & Data Annotation",
+                exp3_desc: "Technical evaluation of AI-generated responses, dataset annotation, and code development to improve machine learning model performance.",
+                exp4_title: "Laboratory Hardware Maintenance",
+                exp4_desc: "Fault diagnosis, component-level testing and repair of precision equipment: GW Instek GOS-653G analog oscilloscopes, Steren multimeters, power supplies, and signal generators.",
+                exp5_title: "Academic Administration & Support",
+                exp5_desc: "Equipment inventory and loan management, and technical support for the Physics Olympiad.",
+                proj_title: "Featured Work",
+                proj1_title: "Wireless Robotics & Sign Language Recognition",
+                proj1_desc: "Robotic automation system powered by ESP32 with wireless video streaming and a custom-trained ML model for sign language detection and facial recognition. The robot responds to gestural commands from authorized users.",
+                proj2_title: "Bio-Image Segmentation with CNNs",
+                proj2_desc: "Python scripts using Cellpose, OpenCV, and LOCO-EFA for cell mask extraction and contour reconstruction. Fourier morphology analysis on cell cultures using Convolutional Neural Networks.",
+                proj3_title: "Automated Inventory System",
+                proj3_desc: "Mobile application for university equipment management built with React Native and Expo, featuring an AWS RDS relational database and barcode tracking.",
+                proj4_title: "Game Balancing Engine & Tactical Audit",
+                proj4_desc: "Python simulation tool for auditing strategic metrics in Clash Royale, with Git version control and code published on GitHub.",
+                proj5_title: "Quantum Field Theory Research",
+                proj5_desc: "Thesis on the renormalization of the ultraviolet divergence at 1-loop using FeynCalc, with GitHub repositories and LaTeX documentation.",
+                skills_title: "Tech Stack",
+                sk1_title: "Programming Languages", sk2_title: "Artificial Intelligence & ML",
+                sk3_title: "Data Science & Mathematics", sk4_title: "Hardware & Computer Vision",
+                sk5_title: "Cloud Infrastructure", sk6_title: "Development Tools",
+                edu_title: "Academic Background",
+                edu1_title: "B.Sc. in Physics", edu1_inst: "Faculty of Physical & Mathematical Sciences — UANL",
+                edu1_desc: "Rigorous training in theoretical physics, quantum mechanics, electrodynamics, and advanced mathematical methods. Thesis in Quantum Field Theory.",
+                edu2_title: "Dual Technical Degree", edu2_inst: "Information Technology & Computer Science",
+                edu2_desc: "Fundamentals in computer architecture, data structures, programming, networking, and operating systems.",
+                edu3_title: "CONACe Certification — 2023", edu3_inst: "National Accreditation Council",
+                edu3_desc: "Neural Networks and Data Analysis in R. Professional certification in machine learning methodologies and statistical analysis.",
+                contact_title: "Let's Work Together",
+                contact_desc: "I'm open to opportunities in data science, AI evaluation, software development, and research. If my profile matches what you're looking for, feel free to reach out."
+            },
+            es: {
+                nav_about: "Sobre Mí", nav_experience: "Experiencia", nav_projects: "Proyectos",
+                nav_skills: "Habilidades", nav_education: "Educación", nav_contact: "Contacto",
+                hero_badge: "Disponible para oportunidades",
+                hero_subtitle: "Físico e Ingeniero en IA con especialidad en evaluación de modelos de machine learning, visión computacional, robótica y computación científica.",
+                hero_btn_projects: "Ver Proyectos", hero_btn_contact: "Contacto",
+                about_title: "Física, Código y Datos",
+                about_p1: 'Soy un <strong>Físico</strong> egresado de la Facultad de Ciencias Físico Matemáticas (FCFM) de la UANL, con doble titulación técnica en <strong>Informática</strong> y <strong>Ciencias de la Computación</strong>. Radicado en Nuevo León, México, con capacidad bilingüe en inglés y español.',
+                about_p2: 'Mi formación me permite combinar una base rigurosa en <strong>física teórica y matemática</strong> con habilidades avanzadas en desarrollo de software, análisis de datos, infraestructura en la nube y visión computacional.',
+                about_p3: 'Cuento con experiencia comprobable en la <strong>evaluación de modelos de IA</strong>, control de calidad de procesos automatizados, desarrollo de robótica interactiva y análisis de bio-imágenes con redes neuronales.',
+                stat_projects: "Proyectos Técnicos", stat_langs: "Lenguajes", stat_bilingual: "Bilingüe", stat_degrees: "Titulaciones",
+                exp_title: "Trayectoria Profesional",
+                exp1_title: "Evaluación de IA y Aseguramiento de Calidad",
+                exp1_desc: "Análisis y evaluación de modelos de inteligencia artificial orientados a la gestión y procesamiento de correos electrónicos. Evaluación del rendimiento, precisión y fiabilidad de respuestas generadas por IA.",
+                exp2_title: "Control de Calidad — Automatización Económica",
+                exp2_desc: "QA para la automatización de procesos económicos, asegurando la integridad y eficiencia de los flujos de trabajo automatizados en producción.",
+                exp3_title: "Evaluación Técnica y Anotación de IA",
+                exp3_desc: "Evaluación técnica de respuestas generadas por IA, anotación de conjuntos de datos y desarrollo de código para mejorar el rendimiento de modelos de machine learning.",
+                exp4_title: "Mantenimiento de Hardware de Laboratorio",
+                exp4_desc: "Diagnóstico de fallos, prueba y reparación a nivel de componentes de equipos de precisión: osciloscopios analógicos GW Instek GOS-653G, multímetros Steren, fuentes de poder y generadores de señales.",
+                exp5_title: "Administración y Soporte Académico",
+                exp5_desc: "Gestión de inventarios y préstamos de equipo, y apoyo técnico para la Olimpiada de Física.",
+                proj_title: "Trabajo Destacado",
+                proj1_title: "Robótica Inalámbrica y Reconocimiento de Lenguaje de Señas",
+                proj1_desc: "Sistema de automatización robótica con ESP32, transmisión de video inalámbrica y modelo de ML entrenado desde cero para detectar lenguaje de señas y reconocimiento facial. El robot responde a comandos gestuales de usuarios autorizados.",
+                proj2_title: "Segmentación de Bio-imágenes con CNNs",
+                proj2_desc: "Scripts en Python con Cellpose, OpenCV y LOCO-EFA para extracción de máscaras celulares y reconstrucción de contornos. Análisis de Fourier de morfología en cultivos celulares usando Redes Neuronales Convolucionales.",
+                proj3_title: "Sistema Automatizado de Inventario",
+                proj3_desc: "Aplicación móvil para gestión de equipos universitarios con React Native y Expo, base de datos relacional en AWS RDS y seguimiento mediante códigos de barras.",
+                proj4_title: "Motor de Balanceo de Juegos y Auditoría Táctica",
+                proj4_desc: "Herramienta de simulación en Python para auditar métricas estratégicas en Clash Royale, con control de versiones en Git y código publicado en GitHub.",
+                proj5_title: "Investigación en Teoría Cuántica de Campos",
+                proj5_desc: "Tesis sobre la renormalización de la divergencia ultravioleta a 1-loop utilizando FeynCalc, con repositorios en GitHub y documentación en LaTeX.",
+                skills_title: "Stack Técnico",
+                sk1_title: "Lenguajes de Programación", sk2_title: "Inteligencia Artificial y ML",
+                sk3_title: "Ciencia de Datos y Matemáticas", sk4_title: "Hardware y Visión Computacional",
+                sk5_title: "Infraestructura Cloud", sk6_title: "Herramientas de Desarrollo",
+                edu_title: "Formación Académica",
+                edu1_title: "Licenciatura en Física", edu1_inst: "Facultad de Ciencias Físico Matemáticas — UANL",
+                edu1_desc: "Formación rigurosa en física teórica, mecánica cuántica, electrodinámica y métodos matemáticos avanzados. Tesis en Teoría Cuántica de Campos.",
+                edu2_title: "Doble Titulación Técnica", edu2_inst: "Informática y Ciencias de la Computación",
+                edu2_desc: "Fundamentos de arquitectura de computadoras, estructuras de datos, programación, redes y sistemas operativos.",
+                edu3_title: "Certificación CONACe — 2023", edu3_inst: "Consejo Nacional de Acreditación",
+                edu3_desc: "Redes Neuronales y Análisis de Datos en R. Certificación profesional en metodologías de machine learning y análisis estadístico.",
+                contact_title: "Trabajemos Juntos",
+                contact_desc: "Estoy abierto a oportunidades en ciencia de datos, evaluación de IA, desarrollo de software e investigación. Si mi perfil encaja con lo que buscas, no dudes en contactarme."
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.documentElement.lang = lang;
+            document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+            document.getElementById('btnES').classList.toggle('active', lang === 'es');
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        // Init language
+        setLang(currentLang);
+
+        /* ===== Particles ===== */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let mouse = { x: null, y: null };
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.speedX = (Math.random() - 0.5) * 0.4; this.speedY = (Math.random() - 0.5) * 0.4;
                 this.opacity = Math.random() * 0.5 + 0.1;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.speedX; this.y += this.speedY;
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
             draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(79, 140, 255, ${this.opacity})`;
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(79,140,255,${this.opacity})`; ctx.fill();
             }
         }
 
         function initParticles() {
             particles = [];
             const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         }
 
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
+                    const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 150) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(79, 140, 255, ${0.08 * (1 - dist / 150)})`;
+                        ctx.strokeStyle = `rgba(79,140,255,${0.08 * (1 - dist / 150)})`;
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -1265,58 +863,39 @@
             }
         }
 
-        function animateParticles() {
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             connectParticles();
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animate);
         }
 
-        resizeCanvas();
-        initParticles();
-        animateParticles();
+        resizeCanvas(); initParticles(); animate();
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-
-        // === Navbar scroll effect ===
+        /* ===== Navbar ===== */
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            nav.classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // === Mobile menu ===
+        /* ===== Mobile ===== */
         const navToggle = document.getElementById('navToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-
         navToggle.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
             const icon = navToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
+            icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-xmark');
         });
-
         function closeMobile() {
             mobileMenu.classList.remove('active');
             const icon = navToggle.querySelector('i');
-            icon.classList.add('fa-bars');
-            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars'); icon.classList.remove('fa-xmark');
         }
 
-        // === Scroll reveal ===
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+        /* ===== Reveal ===== */
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
